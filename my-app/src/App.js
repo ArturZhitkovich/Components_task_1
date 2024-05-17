@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 export const App = () => {
 	const [value, setValue] = useState('');
-	const [list, setList] = useState([]);
+	const [list, setList] = useState([{ id: Date.now(), value: 'dasdsa' }]);
 	const [error, setError] = useState('');
 	const [isValueValid, setIsValueValid] = useState(false);
 
@@ -21,14 +21,13 @@ export const App = () => {
 	};
 
 	const onAddButtonClick = () => {
-		const updatedList = [...list, { id: Date.now(), value: value }];
-		setList(updatedList);
+		setList((prev) => [...prev, { id: Date.now(), value: value }]);
 	};
 
 	const errorBLock = <div className={styles.error}>{error}</div>;
 	const listBlock = (
 		<ul className={styles.list}>
-			{[...list].map(({ id, value }) => (
+			{list.map(({ id, value }) => (
 				<li className={styles['list-item']} key={id}>
 					{value}
 				</li>
